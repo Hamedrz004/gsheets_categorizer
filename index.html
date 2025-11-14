@@ -2,95 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dify Workflow Form</title>
+  <title>Google Sheet Categorizer</title>
   <style>
-    /* Basic styles to keep it clean */
-    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
-    label { display: block; margin-top: 12px; }
-    input, textarea { width: 100%; padding: 8px; margin-top: 4px; }
-    button { margin-top: 16px; padding: 10px 16px; }
-    pre { background: #f6f8fa; padding: 12px; overflow-x: auto; }
-    .status { margin-top: 12px; color: #555; }
-    .error { color: #b00020; }
-    .success { color: #0b7; }
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+    }
+    pre {
+      background: #f6f8fa;
+      padding: 12px;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
-  <h1>Send data to Dify</h1>
+  <h1>Google Sheet Categorizer</h1>
 
-  <form id="difyForm">
-    <label for="name">Name</label>
-    <input id="name" name="name" required />
+  <form id="sheetForm">
+    <label for="sheet_id">Sheet ID</label>
+    <input id="sheet_id" name="sheet_id" required />
 
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" required />
+    <label for="label">Label of the Sheet (e.g. Sheet1)</label>
+    <input id="label" name="label" required />
 
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
+    <label for="read_from">Read from cell (start of input range)</label>
+    <input id="read_from" name="read_from" value="A1" required />
 
-    <button type="submit">Send</button>
+    <label for="read_to">To cell (end of input range)</label>
+    <input id="read_to" name="read_to" value="A5" required />
+
+    <label for="write_from">Write from cell (start of output range)</label>
+    <input id="write_from" name="write_from" required />
+
+    <label for="write_to">To cell (end of output range)</label>
+    <input id="write_to" name="write_to" required />
+
+    <label for="categories">Categories (e.g. 1-objects 2-fruits ...)</label>
+    <textarea id="categories" name="categories" rows="3" required></textarea>
+
+    <button type="submit">Run Workflow</button>
   </form>
 
-  <div id="status" class="status"></div>
   <pre id="response"></pre>
 
   <script>
-    // Replace this with your actual Netlify function URL after you deploy it:
-    const PROXY_URL = "https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions/dify";
+    const PROXY_URL = "/.netlify/functions/dify"; // Replace with your actual proxy URL if needed
 
-    const form = document.getElementById("difyForm");
-    const statusEl = document.getElementById("status");
-    const responseEl = document.getElementById("response");
+    document.getElementById("sheetForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault(); // Stops the page from reloading
-
-      // 1) Collect values from inputs
       const payload = {
-        // IMPORTANT: keys must match the input names your Dify workflow expects
-        name: document.getElementById("name").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        message: document.getElementById("message").value.trim()
+        sheet_id: document.getElementById("sheet_id").value.trim(),
+        label: document.getElementById("label").value.trim(),
+        read_from: document.getElementById("read_from").value.trim(),
+        read_to: document.getElementById("read_to").value.trim(),
+        write_from: document.getElementById("write_from").value.trim(),
+        write_to: document.getElementById("write_to").value.trim(),
+        categories: document.getElementById("categories").value.trim()
       };
 
-      // 2) Basic validation (do this before sending)
-      if (!payload.name || !payload.email || !payload.message) {
-        statusEl.textContent = "Please fill in all fields.";
-        statusEl.className = "status error";
-        return;
-      }
-
-      // 3) Show a status while sending
-      statusEl.textContent = "Sending...";
-      statusEl.className = "status";
+      const responseEl = document.getElementById("response");
+      responseEl.textContent = "Sending...";
 
       try {
-        // 4) Send a POST request to your Netlify proxy
         const r = await fetch(PROXY_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
 
-        // 5) Convert the response to JavaScript object
         const data = await r.json();
-
-        // 6) Show success or error based on HTTP status
-        if (r.ok) {
-          statusEl.textContent = "Success! Dify responded below.";
-          statusEl.className = "status success";
-        } else {
-          statusEl.textContent = "There was a problem. See details below.";
-          statusEl.className = "status error";
-        }
-
-        // 7) Display the raw JSON response (useful for debugging)
         responseEl.textContent = JSON.stringify(data, null, 2);
-
       } catch (err) {
-        statusEl.textContent = "Network or server error: " + err.message;
-        statusEl.className = "status error";
-        responseEl.textContent = "";
+        responseEl.textContent = "Error: " + err.message;
       }
     });
   </script>
