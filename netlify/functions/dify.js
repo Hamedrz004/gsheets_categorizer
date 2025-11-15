@@ -8,7 +8,7 @@ export async function handler(event) {
   try {
     const inputs = JSON.parse(event.body || "{}");
 
-    const difyResp = await fetch("https://api.dify.ai/v1", {
+    const difyResp = await fetch("https://api.dify.ai/v1/workflows/run", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
