@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: sans-serif;
-      background-color: #f0fff0; /* Honeydew */
+      background-color: #f7f9fc;
       color: #333;
       max-width: 600px;
       margin: 40px auto;
@@ -16,41 +16,41 @@
       display: block;
       margin-top: 12px;
       font-weight: bold;
-      color: #2e8b57; /* SeaGreen */
+      color: #34a853;
     }
     input, textarea {
       width: 100%;
       padding: 8px;
       margin-top: 4px;
       box-sizing: border-box;
-      border: 1px solid #98fb98; /* PaleGreen */
-      border-radius: 4px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
     }
     button {
       margin-top: 20px;
       padding: 10px 16px;
       font-size: 16px;
-      background-color: #3cb371; /* MediumSeaGreen */
+      background-color: #34a853;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #2e8b57; /* SeaGreen */
+      background-color: #2c8c4a;
     }
     pre {
-      background: #f5f5f5; /* WhiteSmoke */
+      background: #f1f3f4;
       padding: 12px;
       margin-top: 20px;
       overflow-x: auto;
-      border: 1px solid #eee;
-      border-radius: 4px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>Google Sheet Categorizer</h1>
+  <h1>📊 Google Sheet Categorizer</h1>
 
   <form id="sheetForm">
     <label for="sheet_id">Sheet ID</label>
@@ -78,6 +78,9 @@
   </form>
 
   <pre id="response"></pre>
+
+  <h2>How to use</h2>
+  <p>For instructions on how to use this tool, please visit our <a href="https://github.com/your-repo" target="_blank">GitHub page</a>.</p>
 
   <script>
     const PROXY_URL = "/.netlify/functions/dify"; // Replace with your actual proxy URL if needed
