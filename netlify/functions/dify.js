@@ -8,11 +8,11 @@ export async function handler(event) {
   try {
     const inputs = JSON.parse(event.body || "{}");
 
-    const difyResp = await fetch("https://api.dify.ai/v1/workflows/YOUR_WORKFLOW_ID/run", {
+    const difyResp = await fetch("https://api.dify.ai/v1", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.DIFY_API_KEY}`
+        "Authorization": `Bearer ${process.env.dify_api}`
       },
       body: JSON.stringify({ inputs })
     });
