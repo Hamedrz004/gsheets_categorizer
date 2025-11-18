@@ -16,6 +16,7 @@ this AI workflow imports data from cells in your google sheets spreadsheets and 
    - Input range (e.g., `A1` → `A5`)
    - Output range (e.g., `B1` → `B5`)
    - Categories (e.g., `0-objects 1-fruits ...`)
+   - an optional description on how the AI should categorize the data.
 4. Click **Run Workflow**.
 5. AI will read the data in the input cells and will categorize them based on the categories you gave it, and write the index(starting from 0) of the category coresponding to each input cell in the output cells.
 6. you can see the progress and result on the right side of the page.
