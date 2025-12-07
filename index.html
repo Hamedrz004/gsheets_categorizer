@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Categorizer</title>
+    <style>
+        :root {
+            /* Minty Pastel Theme */
+            --bg-color: #e8f5e9; /* Very light mint/green */
+            --card-bg: #ffffff;
+            --primary-text: #263238;
+            --secondary-text: #546e7a;
+            --accent-teal: #009688;
+            --accent-cyan: #26a69a;
+            --link-color: #00796b;
+            --code-bg: #f1f8e9;
+            --border-color: #a5d6a7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 900px;
+            margin: 40px 20px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 150, 136, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--accent-teal);
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            text-align: center;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--accent-cyan);
+            margin-top: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            margin-bottom: 1.2em;
+            color: var(--secondary-text);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-teal);
+            text-decoration: underline;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            color: var(--accent-teal);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+            word-break: break-all;
+        }
+
+        .note {
+            background-color: #e0f2f1;
+            border-left: 5px solid var(--accent-teal);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--primary-text);
+        }
+
+        ol {
+            counter-reset: item;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ol > li {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        ol > li::before {
+            content: counter(item);
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background-color: var(--accent-teal);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 10px;
+            color: var(--secondary-text);
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-teal);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 150, 136, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-cyan);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 150, 136, 0.3);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                padding: 20px;
+                box-shadow: none;
+                border: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Google Sheets Categorizer</h1>
+
+        <p>This AI workflow imports data from cells in your Google Sheets spreadsheets, categorizes them according to the categories you provide, and updates your spreadsheet with the index of the group each item belongs to in the indicated cells.</p>
+
+        <div class="note">
+            <strong>Note:</strong> If an item cannot be assigned to any of the given categories, it will be assigned a category index of -1.
+        </div>
+
+        <h2>Usage</h2>
+
+        <ol>
+            <li>
+                Open the Google Sheets spreadsheet containing the data you want to categorize. Grant editing access to <code>hamed-366@sheet-categorizer-477911.iam.gserviceaccount.com</code> using the Share button.
+            </li>
+            <li>
+                Access the workflow by clicking the button below:
+                <br><br>
+                <a href="https://udify.app/workflow/iRj28loFZZ9MQ2fw" target="_blank" class="btn">Open Workflow</a>
+            </li>
+            <li>
+                Fill in the required fields:
+                <ul>
+                    <li><strong>Sheet ID:</strong> Found in the URL of your spreadsheet as shown in the photo below.
+                        <img src="https://github.com/user-attachments/assets/84a88f56-0908-404d-a14d-99fbd9205eee" alt="Screenshot showing Sheet ID location" />
+                        <em>The Sheet ID in this example is underlined in green (1L8Plah6w93...gQoqZE).</em>
+                    </li>
+                    <li><strong>Worksheet Name:</strong> (e.g., <code>Sheet1</code>)</li>
+                    <li><strong>Input Range:</strong> (e.g., <code>A1</code> → <code>A5</code>)</li>
+                    <li><strong>Output Range:</strong> (e.g., <code>B1</code> → <code>B5</code>)</li>
+                    <li><strong>Categories:</strong> (e.g., <code>0-objects 1-fruits ...</code>)</li>
+                    <li><strong>Description (Optional):</strong> Instructions on how the AI should categorize the data.</li>
+                </ul>
+            </li>
+            <li>
+                Click <strong>Run Workflow</strong>.
+            </li>
+            <li>
+                The AI will read the data from the input cells, categorize them based on the provided categories, and write the index (starting from 0) of the corresponding category to the output cells.
+            </li>
+            <li>
+                You can view the progress and results on the right side of the page.
+            </li>
+            <li>
+                The results will be written directly to your spreadsheet.
+            </li>
+        </ol>
+    </div>
+</body>
+</html>
